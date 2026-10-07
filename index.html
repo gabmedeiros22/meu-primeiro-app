@@ -1,15 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Meu App</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação</title>
+
+    <!-- Buscar a caixa de ferramentas (biblioteca) do Supabase para cá-->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
-    <div class="container">
-        <h1>Bem-vindo ao Meu App</h1>
-        <p>A primeira aplicação completa que você construiu!</p>
-        <button onclick="window.location.href='auth.html'">Entrar ou Cadastrar</button>
-    </div>
-</body>
-</html>
+
+    <h1>Acesso ao sistema</h1>
+
+    <input type="email" id="email" placeholder="e-mail"><br>
+    <input type="password" id="senha" placeholder="senha"><br>
+
+    <button onclick="cadastrar()">Cadastrar</button>
+    <button onclick="logar()">Login</button>
+
+    <!--importa a nossa conexão com o supabase -->
+
+    <script src="supabase-config.js"></script>
+
+    <script>
+        //cadastrar uma nova conta 
+        async function cadastrar() {
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+
+        const resultado = await clienteSupabase.auth.signUp({
+            email: email,
+            password: senha
+        });
+
+        //se não tiver erro, vai para o painel (dashboard)
+
+        if (!resultado.error) {
+            window.location.replace('dashboard.html');
+        }
+    }
+
+    </script>
+    </body>
+    </html>
